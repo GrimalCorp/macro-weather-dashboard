@@ -1,66 +1,254 @@
 {
-  "date": "22 Juin 2026",
-  "lastUpdate": "2026-06-22T07:00:00Z",
+  "date": "31 Juillet 2026",
   "blocs": [
-    { "key": "croissance", "label": "Croissance",      "pct": 20, "score": -0.3, "trend": "↘", "val": "PMI 48.5",         "sub": "S&P Global / BLS" },
-    { "key": "inflation",  "label": "Inflation",        "pct": 15, "score": -1.5, "trend": "→", "val": "CPI 3.4% YoY",    "sub": "BLS / FRED" },
-    { "key": "tauxReels",  "label": "Taux Réels",       "pct": 10, "score": -1.0, "trend": "→", "val": "10Y TIPS 2.1%",   "sub": "FRED" },
-    { "key": "liquidite",  "label": "Liquidité",        "pct": 15, "score":  0.2, "trend": "↗", "val": "M2 +1.8% YoY",   "sub": "OECD / Fed / BCE" },
-    { "key": "condFin",    "label": "Conditions Fin.",  "pct": 10, "score": -0.5, "trend": "↘", "val": "NFCI +0.21",      "sub": "Chicago Fed" },
-    { "key": "credit",     "label": "Crédit",           "pct": 10, "score":  0.0, "trend": "→", "val": "HY Spread 4.2%", "sub": "ICE BofA" },
-    { "key": "anticip",    "label": "Anticipations",    "pct": 10, "score": -0.5, "trend": "↘", "val": "2Y 4.8% / -0.3%", "sub": "FRED" },
-    { "key": "energie",    "label": "Énergie / Géo",    "pct":  5, "score": -2.0, "trend": "↘", "val": "Brent +18.4%",   "sub": "ICE / GPR Index" },
-    { "key": "largeur",    "label": "Largeur Marché",   "pct":  5, "score":  0.5, "trend": "→", "val": "52% > MM200",     "sub": "S&P / MSCI / STOXX" }
+    {
+      "key": "croissance",
+      "label": "Croissance",
+      "pct": 20,
+      "score": 1.5,
+      "trend": "↗",
+      "val": "PMI 53.6",
+      "sub": "S&P Global / BLS"
+    },
+    {
+      "key": "inflation",
+      "label": "Inflation",
+      "pct": 15,
+      "score": -1.0,
+      "trend": "↘",
+      "val": "CPI 3.5% YoY",
+      "sub": "BLS / FRED"
+    },
+    {
+      "key": "tauxReels",
+      "label": "Taux Réels",
+      "pct": 10,
+      "score": -1.5,
+      "trend": "↗",
+      "val": "10Y TIPS 2.41%",
+      "sub": "FRED"
+    },
+    {
+      "key": "liquidite",
+      "label": "Liquidité",
+      "pct": 15,
+      "score": 1.5,
+      "trend": "↗",
+      "val": "M2 5.5% YoY",
+      "sub": "Fed / FRED"
+    },
+    {
+      "key": "condFin",
+      "label": "Conditions Fin.",
+      "pct": 10,
+      "score": 1.5,
+      "trend": "→",
+      "val": "NFCI -0.54",
+      "sub": "Chicago Fed"
+    },
+    {
+      "key": "credit",
+      "label": "Crédit",
+      "pct": 10,
+      "score": 1.0,
+      "trend": "→",
+      "val": "HY 2.87%",
+      "sub": "ICE BofA"
+    },
+    {
+      "key": "anticip",
+      "label": "Anticipations",
+      "pct": 10,
+      "score": 0.5,
+      "trend": "↗",
+      "val": "2Y 4.24% / +42bp",
+      "sub": "FRED"
+    },
+    {
+      "key": "energie",
+      "label": "Énergie / Géo",
+      "pct": 5,
+      "score": -1.5,
+      "trend": "↗",
+      "val": "Brent $89/bbl",
+      "sub": "ICE / GPR"
+    },
+    {
+      "key": "largeur",
+      "label": "Largeur Marché",
+      "pct": 5,
+      "score": 0.5,
+      "trend": "↗",
+      "val": "62% > MM200",
+      "sub": "S&P / MSCI"
+    }
   ],
-  "quality": { "strength": 6, "consensus": 7, "inertie": 6, "fatigue": 7, "transitionRisk": 8, "regimeAge": 7 },
+  "quality": {
+    "strength": 6,
+    "consensus": 6,
+    "inertie": 5,
+    "fatigue": 5,
+    "transitionRisk": 6,
+    "regimeAge": 7
+  },
   "favoris": [
-    { "name": "Or",               "score": 8.4, "note": "Couverture stagflation + géopolitique" },
-    { "name": "Commodities",      "score": 7.8, "note": "Pricing power en inflation persistante" },
-    { "name": "Énergie",          "score": 7.5, "note": "Choc pétrolier favorable au secteur" },
-    { "name": "TIPS",             "score": 7.2, "note": "Protection taux réels + inflation" },
-    { "name": "Consumer Staples", "score": 6.8, "note": "Résilience marges, pricing power" }
+    {
+      "name": "Actions US Growth (Nasdaq)",
+      "score": 7.5,
+      "note": "PMI services 8-mois haut, conditions financières très accommodantes"
+    },
+    {
+      "name": "Or (XAU/USD)",
+      "score": 8.5,
+      "note": "TIPS élevés compensés par incertitude géo, >$4000/oz, refuge vs inflation"
+    },
+    {
+      "name": "Crédit IG Court-Terme",
+      "score": 7.8,
+      "note": "HY spreads à 287 bps, quasi-records, carry attractif, faible risque de défaut"
+    },
+    {
+      "name": "Énergie / XLE",
+      "score": 7.2,
+      "note": "Brent +27% YoY, tensions Hormuz, secteur bénéficiaire du choc géopolitique"
+    },
+    {
+      "name": "TIPS 10 ans",
+      "score": 7.0,
+      "note": "Rendement réel 2.41%, protection contre réaccélération inflation si conflit reprend"
+    }
   ],
   "penalises": [
-    { "name": "Growth non profitable", "score": 2.1, "note": "Taux réels élevés + compression multiple" },
-    { "name": "REITs",                 "score": 2.8, "note": "Sensibilité forte aux taux réels" },
-    { "name": "Obligations longues",   "score": 3.1, "note": "Duration + inflation persistante" }
+    {
+      "name": "Obligations nominales longues (30Y)",
+      "score": 2.5,
+      "note": "Courbe raide, 3 dissidents Fed hawkish, risque hike, déficit fiscal"
+    },
+    {
+      "name": "USD (DXY)",
+      "score": 3.0,
+      "note": "Dollar affaibli -0.6% post-CPI, surplus liquidité M2, déficit courant persistant"
+    },
+    {
+      "name": "Immobilier coté (REITs)",
+      "score": 2.0,
+      "note": "TIPS 2.41% = coût réel élevé, refinancement difficile, taux longs >4.6%"
+    }
   ],
   "donut": [
-    { "label": "Or / Matières premières", "pct": 25, "color": "#F59E0B" },
-    { "label": "Énergie",                 "pct": 20, "color": "#EF4444" },
-    { "label": "TIPS",                    "pct": 20, "color": "#60A5FA" },
-    { "label": "Consumer Staples",        "pct": 15, "color": "#22C55E" },
-    { "label": "Infra. indexée",          "pct": 12, "color": "#8B5CF6" },
-    { "label": "Cash / Court terme",      "pct":  8, "color": "#94A3B8" }
+    {
+      "label": "Actions US",
+      "pct": 35,
+      "color": "#60A5FA"
+    },
+    {
+      "label": "Or & Métaux précieux",
+      "pct": 18,
+      "color": "#F59E0B"
+    },
+    {
+      "label": "Crédit IG",
+      "pct": 15,
+      "color": "#22C55E"
+    },
+    {
+      "label": "TIPS / Inflation",
+      "pct": 12,
+      "color": "#8B5CF6"
+    },
+    {
+      "label": "Énergie / Commodités",
+      "pct": 12,
+      "color": "#EF4444"
+    },
+    {
+      "label": "Cash / T-Bills",
+      "pct": 8,
+      "color": "#94A3B8"
+    }
   ],
   "inflChart": {
-    "labels":       ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun"],
-    "cpi":          [3.1, 3.2, 3.0, 3.3, 3.4, 3.4],
-    "coreCpi":      [3.0, 3.0, 2.9, 3.0, 3.1, 3.1],
-    "expectations": [2.6, 2.7, 2.7, 2.8, 2.8, 2.8]
+    "labels": [
+      "Fév",
+      "Mar",
+      "Avr",
+      "Mai",
+      "Juin",
+      "Juil*"
+    ],
+    "cpi": [
+      2.4,
+      3.3,
+      3.8,
+      4.2,
+      3.5,
+      3.8
+    ],
+    "coreCpi": [
+      2.5,
+      2.7,
+      2.8,
+      2.9,
+      2.6,
+      2.7
+    ],
+    "expectations": [
+      3.5,
+      3.4,
+      4.4,
+      4.6,
+      4.6,
+      4.2
+    ]
   },
-  "confirms":   [
-    "PMI 48.5 → contraction de l'activité",
-    "Brent +18% YoY → choc énergie confirmé",
-    "TIPS réels >2% → coût du capital élevé",
-    "GPR Index 284 → risque géopolitique extrême"
+  "confirms": [
+    "PMI Composite flash juillet 53.6 — 8-mois high, expansion robuste",
+    "M2 +5.5% YoY : injection de liquidité soutenant les actifs risqués",
+    "NFCI -0.54 : conditions financières très accommodantes, crédit fluide",
+    "HY spreads 287 bps : marchés du crédit détendus, aucun signal de stress systémique"
   ],
   "contradicts": [
-    "M2 +1.8% → liquidité non effondrée",
-    "HY Spread stable → pas de stress crédit",
-    "Largeur 52% → pas de capitulation large"
+    "10Y TIPS 2.41% : taux réels élevés pèsent sur valorisations et capex",
+    "3 dissidents hawkish FOMC (Hammack, Kashkari, Logan) : risque de hausse des taux",
+    "Brent +27% YoY & renewed US-Iran strikes : choc inflationniste énergie non résolu"
   ],
   "risks": [
-    "Réaccélération si choc énergie amplifié",
-    "Dégradation crédit si PMI < 47",
-    "Inversion courbe profonde (2s10s)",
-    "Contagion géopolitique marchés émergents"
+    "Réescalade militaire US-Iran → fermeture Détroit d'Ormuz, choc pétrolier >$120/bbl",
+    "FOMC hawkish : 3 dissidents pro-hausse, dot plot penciling +25bp avant fin 2026",
+    "Inflation 1Y Michigan 4.2% : anticipations désancrées, spirale salaires-prix possible",
+    "Concentration marché S&P 500 : 62% > MM200 mais fragilité si rotation sectorielle ou choc"
   ],
   "calendar": [
-    { "date": "25 Jun", "ev": "PCE US (Mai)",       "hi": true  },
-    { "date": "27 Jun", "ev": "PIB US T1 Final",    "hi": false },
-    { "date": "2 Jul",  "ev": "NFP US (Jun)",       "hi": true  },
-    { "date": "10 Jul", "ev": "CPI US (Jun)",       "hi": true  },
-    { "date": "17 Jul", "ev": "Fed Beige Book",     "hi": false }
-  ]
+    {
+      "date": "1 Août",
+      "ev": "NFP Juillet 2026 (BLS)",
+      "hi": true
+    },
+    {
+      "date": "4 Août",
+      "ev": "PCE Juin 2026 — indicateur préféré de la Fed",
+      "hi": true
+    },
+    {
+      "date": "12 Août",
+      "ev": "CPI Juillet 2026 (BLS)",
+      "hi": true
+    },
+    {
+      "date": "27-29 Août",
+      "ev": "Jackson Hole — discours Warsh (Fed)",
+      "hi": true
+    },
+    {
+      "date": "15-16 Sep",
+      "ev": "Réunion FOMC — décision taux (dot plot)",
+      "hi": true
+    },
+    {
+      "date": "11 Sep",
+      "ev": "CPI Août 2026 (BLS)",
+      "hi": false
+    }
+  ],
+  "lastUpdate": "2026-07-31T16:18:57Z"
 }
