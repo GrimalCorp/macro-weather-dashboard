@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Macro Weather Dashboard V5.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#090C15;--s1:#0F1623;--s2:#141D2E;--s3:#192337;
+  --bd:#1E2D45;--tx:#E2E8F0;--td:#94A3B8;--tm:#64748B;
+  --gr:#22C55E;--rd:#EF4444;--am:#F59E0B;--bl:#60A5FA;
+  --pu:#8B5CF6;--or:#F97316;
+  --mono:'Space Mono',monospace;--sans:'Inter',sans-serif;
+}
+html{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:12px;line-height:1.4}
+body{min-height:100vh}
+
+/* ── LOADER ── */
+#loader{
+  position:fixed;inset:0;background:var(--bg);z-index:100;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+}
+.spinner{
+  width:40px;height:40px;border:3px solid var(--bd);
+  border-top-color:var(--am);border-radius:50%;
+  animation:spin .9s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{font-family:var(--mono);font-size:11px;color:var(--tm);letter-spacing:.1em}
+
+/* ── APP ── */
+#app{
+  display:grid;grid-template-rows:auto 1fr auto;
+  gap:8px;padding:10px;min-height:100vh;
+  max-width:1600px;margin:0 auto;
+  opacity:0;transition:opacity .4s;
+}
+#app.visible{opacity:1}
+
+/* ── CARDS ── */
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:8px;overflow:hidden}
+.card-head{
+  padding:5px 12px;font-size:9px;font-family:var(--mono);
+  color:var(--tm);letter-spacing:.1em;text-transform:uppercase;
+  background:var(--s2);border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.card-body{padding:10px 12px}
+
+/* ── HEADER ── */
+.hd{display:grid;grid-template-columns:260px 1fr 280px;gap:8px}
+.regime-emoji{font-size:24px;line-height:1}
+.regime-name{font-family:var(--mono);font-size:13px;font-weight:700;margin-top:4px;line-height:1.2}
+.regime-score{font-family:var(--mono);font-size:32px;font-weight:700;margin:6px 0 2px}
+.regime-interp{font-size:10px;color:var(--td);margin-bottom:8px}
+.regime-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.badge{font-size:8px;font-family:var(--mono);padding:2px 7px;border-radius:3px;letter-spacing:.06em;border:1px solid}
+.gauge-center{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 12px;gap:4px}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.q-item{display:flex;flex-direction:column;align-items:center;gap:1px}
+.q-label{font-size:8px;font-family:var(--mono);color:var(--tm);text-transform:uppercase;letter-spacing:.08em}
+.q-val{font-family:var(--mono);font-size:12px;font-weight:700}
+.tr-row{margin-top:8px;background:var(--s2);border-radius:4px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between}
+.update-bar{
+  font-size:9px;font-family:var(--mono);color:var(--tm);
+  padding:4px 12px;border-top:1px solid var(--bd);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.update-dot{width:6px;height:6px;border-radius:50%;background:var(--gr);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── MAIN ── */
+.main{display:grid;grid-template-columns:220px 1fr 310px;gap:8px;min-height:0}
+
+/* LEFT */
+.left-col{display:flex;flex-direction:column}
+.bloc-row{display:grid;grid-template-columns:1fr 52px 28px 16px;gap:3px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(30,45,69,.5)}
+.bloc-row:last-child{border-bottom:none}
+.bloc-name{font-size:10px;color:var(--td)}
+.bloc-sub{font-size:8px;color:var(--tm);font-family:var(--mono);margin-top:1px}
+.mini-bar{position:relative;height:10px;background:var(--s2);border-radius:2px}
+.mini-bar-c{position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--bd)}
+.mini-bar-f{position:absolute;top:0;bottom:0;border-radius:2px}
+.s-num{font-family:var(--mono);font-size:9px;font-weight:700;text-align:right}
+.s-trend{font-size:11px;text-align:center}
+
+/* CENTER */
+.center-col{display:flex;flex-direction:column;gap:8px}
+.matrix-wrap{flex:1;display:flex;flex-direction:column;min-height:260px}
+.sigs-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.sig-item{display:flex;align-items:flex-start;gap:5px;padding:3px 0;border-bottom:1px solid rgba(30,45,69,.4);font-size:10px;color:var(--td);line-height:1.3}
+.sig-item:last-child{border-bottom:none}
+.sig-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0;margin-top:4px}
+
+/* RIGHT */
+.right-col{display:flex;flex-direction:column;gap:8px}
+.asset-row{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid rgba(30,45,69,.4)}
+.asset-row:last-child{border-bottom:none}
+.asset-name{font-size:11px;flex:1}
+.asset-note{font-size:8px;color:var(--tm)}
+.asset-num{font-family:var(--mono);font-size:11px;font-weight:700}
+.a-bar{width:32px;height:3px;background:var(--s2);border-radius:2px}
+.a-fill{height:100%;border-radius:2px}
+.donut-wrap{display:flex;gap:10px;align-items:center}
+.leg-item{display:flex;align-items:center;gap:4px;margin-bottom:2px;font-size:9px;color:var(--td)}
+.leg-dot{width:7px;height:7px;border-radius:1px;flex-shrink:0}
+.chart-leg{display:flex;gap:10px;justify-content:center;margin-top:4px}
+.cal-row{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(30,45,69,.4)}
+.cal-row:last-child{border-bottom:none}
+.cal-date{font-family:var(--mono);font-size:9px;color:var(--bl);width:36px;flex-shrink:0}
+.cal-ev{font-size:10px;color:var(--td);flex:1}
+.cal-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+
+footer{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:8px 14px;font-size:8.5px;color:var(--tm);font-family:var(--mono);background:var(--s1);border:1px solid var(--bd);border-radius:8px;line-height:1.8}
+.disclaimer{max-width:440px;text-align:right;line-height:1.5}
+canvas{display:block}
+.scrolly{overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--bd) transparent}
+</style>
+</head>
+<body>
+
+<!-- Loading overlay -->
+<div id="loader">
+  <div class="spinner"></div>
+  <div class="loader-text">CHARGEMENT DES DONNÉES MACRO...</div>
+</div>
+
+<div id="app">
+
+<!-- ═══ HEADER ═══ -->
+<header class="hd">
+  <div class="card">
+    <div class="card-head">Régime Macro · V5.0 &nbsp;·&nbsp; <span id="dashDate"></span></div>
+    <div class="card-body">
+      <div class="regime-emoji" id="regEmoji">—</div>
+      <div class="regime-name"  id="regName">—</div>
+      <div class="regime-score" id="regScore">—</div>
+      <div class="regime-interp"id="regInterp">—</div>
+      <div class="regime-footer">
+        <span class="badge" id="regBadge">—</span>
+        <span style="font-size:9px;color:var(--tm);font-family:var(--mono)">Âge : <span id="regAge">—</span></span>
+      </div>
+    </div>
+    <div class="update-bar">
+      <span><div class="update-dot" style="display:inline-block;margin-right:5px;vertical-align:middle"></div>Dernière MàJ : <span id="lastUpdate">—</span></span>
+      <span style="color:var(--bd)">Auto · toutes les 2 semaines</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">Score Macro Global &nbsp;·&nbsp; Pondéré · Échelle −2 à +2</div>
+    <div class="gauge-center"><canvas id="mainGauge" width="440" height="118"></canvas></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">Qualité du Régime</div>
+    <div class="card-body">
+      <div class="q-grid">
+        <div class="q-item"><canvas id="gStr" width="80" height="44"></canvas><div class="q-label">Strength</div><div class="q-val" id="qStr" style="color:var(--am)">—</div></div>
+        <div class="q-item"><canvas id="gCon" width="80" height="44"></canvas><div class="q-label">Consensus</div><div class="q-val" id="qCon" style="color:var(--am)">—</div></div>
+        <div class="q-item"><canvas id="gIne" width="80" height="44"></canvas><div class="q-label">Inertie</div><div class="q-val" id="qIne" style="color:var(--am)">—</div></div>
+        <div class="q-item"><canvas id="gFat" width="80" height="44"></canvas><div class="q-label">Fatigue</div><div class="q-val" id="qFat" style="color:var(--bl)">—</div></div>
+      </div>
+      <div class="tr-row">
+        <span style="font-size:9px;font-family:var(--mono);color:var(--tm)">⚠ Risque de Transition</span>
+        <span style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--rd)" id="trVal">—</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main">
+
+  <div class="card left-col">
+    <div class="card-head">Drivers Macro — 9 Blocs Pondérés</div>
+    <div class="card-body scrolly" style="flex:1" id="blocTable"></div>
+  </div>
+
+  <div class="center-col">
+    <div class="card matrix-wrap">
+      <div class="card-head">
+        <span>Matrice Croissance × Inflation</span>
+        <span style="color:var(--tm)">Axe X = Score Inflation · Axe Y = Score Croissance</span>
+      </div>
+      <div style="flex:1;padding:8px;display:flex;align-items:stretch;justify-content:center">
+        <svg id="matrix" viewBox="0 0 460 290" style="width:100%;height:100%"></svg>
+      </div>
+    </div>
+    <div class="sigs-row">
+      <div class="card"><div class="card-head" style="color:var(--gr)">✓ Confirment</div><div class="card-body" id="sigC"></div></div>
+      <div class="card"><div class="card-head" style="color:var(--am)">⟳ Contredisent</div><div class="card-body" id="sigX"></div></div>
+      <div class="card"><div class="card-head" style="color:var(--rd)">⚡ Risques</div><div class="card-body" id="sigR"></div></div>
+    </div>
+  </div>
+
+  <div class="right-col">
+    <div class="card"><div class="card-head" style="color:var(--gr)">▲ Actifs Favorisés</div><div class="card-body" id="favList"></div></div>
+    <div class="card"><div class="card-head" style="color:var(--rd)">▼ Actifs Pénalisés</div><div class="card-body" id="penList"></div></div>
+    <div class="card">
+      <div class="card-head">Allocation Suggérée</div>
+      <div class="card-body"><div class="donut-wrap"><canvas id="donut" width="100" height="100"></canvas><div id="donutLeg" style="flex:1"></div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-head">Inflation — 6 mois glissants</div>
+      <div class="card-body">
+        <canvas id="inflChart" width="270" height="80"></canvas>
+        <div class="chart-leg">
+          <span style="font-size:8px;font-family:var(--mono);color:#EF4444">■ CPI YoY</span>
+          <span style="font-size:8px;font-family:var(--mono);color:#60A5FA">■ Core CPI</span>
+          <span style="font-size:8px;font-family:var(--mono);color:#F59E0B">■ Exp. 5Y5Y</span>
+        </div>
+      </div>
+    </div>
+    <div class="card"><div class="card-head">Calendrier Macro</div><div class="card-body" id="calList"></div></div>
+  </div>
+</main>
+
+<footer>
+  <div>
+    <strong style="color:var(--td)">Sources :</strong> S&P Global PMI · FactSet · BLS · OECD · FRED · ECB · Chicago Fed · Goldman Sachs FCI · ICE BofA · Moody's · GPR Index · BIS<br>
+    <strong style="color:var(--td)">Données :</strong> Mises à jour automatiquement via Claude API + web_search — les 1er et 15 de chaque mois
+  </div>
+  <div class="disclaimer">
+    Le dashboard décrit l'environnement macro-financier actuel. Il ne constitue ni une prévision, ni une recommandation d'investissement. Les marchés peuvent évoluer différemment des cycles historiques.
+  </div>
+</footer>
+
+</div><!-- #app -->
+
+<script>
+// ════════════════════════════════════════════════
+//  Helpers
+// ════════════════════════════════════════════════
+function sColor(s){
+  if(s>=1)    return"#22C55E";
+  if(s>=0.3)  return"#86EFAC";
+  if(s>=-0.3) return"#94A3B8";
+  if(s>=-1)   return"#FCA5A5";
+  return"#EF4444";
+}
+function fmt(s,d=1){return(s>=0?"+":"")+s.toFixed(d)}
+function interp(s){
+  if(s>=1)   return"Très favorable aux actifs risqués";
+  if(s>=0.3) return"Favorable";
+  if(s>=-0.3)return"Neutre";
+  if(s>=-1)  return"Défavorable";
+  return"Très défavorable";
+}
+function getRegime(g,i){
+  if(g>0 && i>=-0.3) return{e:"☀️",n:"GOLDILOCKS",               c:"#22C55E",short:"Goldilocks"};
+  if(g>0 && i< -0.3) return{e:"🔥",n:"SURCHAUFFE",               c:"#F97316",short:"Surchauffe"};
+  if(g<=0&& i>=-0.3) return{e:"🌧",n:"RÉCESSION DÉFLATIONNISTE", c:"#60A5FA",short:"Récession Défla."};
+  return               {e:"⛈",n:"STAGFLATION MODÉRÉE",       c:"#D97706",short:"Stagflation"};
+}
+function getCtx(id){
+  const c=document.getElementById(id);
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  const w=parseInt(c.getAttribute("width")),h=parseInt(c.getAttribute("height"));
+  c.width=w*dpr;c.height=h*dpr;c.style.width=w+"px";c.style.height=h+"px";
+  const ctx=c.getContext("2d");ctx.scale(dpr,dpr);
+  return{ctx,w,h};
+}
+function fmtDate(iso){
+  if(!iso)return"—";
+  const d=new Date(iso);
+  return d.toLocaleDateString("fr-FR",{day:"2-digit",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"})+" UTC";
+}
+
+// ════════════════════════════════════════════════
+//  Render
+// ════════════════════════════════════════════════
+function render(D){
+  const globalScore = D.blocs.reduce((s,b)=>s+b.score*(b.pct/100),0);
+  const gS = D.blocs.find(b=>b.key==="croissance").score;
+  const iS = D.blocs.find(b=>b.key==="inflation").score;
+  const regime = getRegime(gS,iS);
+  const q = D.quality;
+  const iLabel = interp(globalScore);
+
+  // Header
+  document.getElementById("dashDate").textContent = D.date;
+  document.getElementById("lastUpdate").textContent = fmtDate(D.lastUpdate);
+  document.getElementById("regEmoji").textContent   = regime.e;
+  document.getElementById("regName").textContent    = regime.n;
+  document.getElementById("regName").style.color    = regime.c;
+  document.getElementById("regScore").textContent   = fmt(globalScore);
+  document.getElementById("regScore").style.color   = sColor(globalScore);
+  document.getElementById("regInterp").textContent  = "Environnement " + iLabel.toLowerCase();
+  const badge = document.getElementById("regBadge");
+  badge.textContent = regime.short.toUpperCase();
+  badge.style.cssText=`background:${regime.c}22;color:${regime.c};border-color:${regime.c}55;font-size:8px;font-family:var(--mono);padding:2px 7px;border-radius:3px;border:1px solid`;
+  document.getElementById("regAge").textContent   = q.regimeAge+" mois";
+  document.getElementById("qStr").textContent = q.strength+"/10";
+  document.getElementById("qCon").textContent = q.consensus+"/10";
+  document.getElementById("qIne").textContent = q.inertie+"/10";
+  document.getElementById("qFat").textContent = q.fatigue+"/10";
+  document.getElementById("trVal").textContent = q.transitionRisk+"/10";
+
+  // Bloc table
+  const bt=document.getElementById("blocTable"); bt.innerHTML="";
+  D.blocs.forEach(b=>{
+    const col=sColor(b.score);
+    const tCol=b.trend==="↗"?"#22C55E":b.trend==="↘"?"#EF4444":"#94A3B8";
+    const neg=b.score<0; const bw=Math.abs(b.score)/2*50;
+    const row=document.createElement("div"); row.className="bloc-row";
+    row.innerHTML=`
+      <div><div class="bloc-name">${b.label} <span style="color:var(--tm);font-size:8px">(${b.pct}%)</span></div><div class="bloc-sub">${b.val}</div></div>
+      <div class="mini-bar"><div class="mini-bar-c"></div><div class="mini-bar-f" style="background:${col};${neg?`right:50%;width:${bw}%`:`left:50%;width:${bw}%`}"></div></div>
+      <div class="s-num" style="color:${col}">${fmt(b.score)}</div>
+      <div class="s-trend" style="color:${tCol}">${b.trend}</div>`;
+    bt.appendChild(row);
+  });
+
+  // Signals
+  function fillSig(id,items,col){
+    const el=document.getElementById(id); el.innerHTML="";
+    items.forEach(txt=>{
+      const d=document.createElement("div"); d.className="sig-item";
+      d.innerHTML=`<div class="sig-dot" style="background:${col}"></div><span>${txt}</span>`;
+      el.appendChild(d);
+    });
+  }
+  fillSig("sigC",D.confirms,"#22C55E");
+  fillSig("sigX",D.contradicts,"#F59E0B");
+  fillSig("sigR",D.risks,"#EF4444");
+
+  // Assets
+  function fillAssets(id,items,isGood){
+    const el=document.getElementById(id); el.innerHTML="";
+    items.forEach(a=>{
+      const col=isGood?"#22C55E":"#EF4444";
+      const d=document.createElement("div"); d.className="asset-row";
+      d.innerHTML=`<div style="flex:1"><div class="asset-name">${a.name}</div><div class="asset-note">${a.note}</div></div>
+        <div style="display:flex;align-items:center;gap:5px">
+          <div class="a-bar"><div class="a-fill" style="width:${(a.score/10)*100}%;background:${col}"></div></div>
+          <div class="asset-num" style="color:${col}">${a.score.toFixed(1)}</div>
+        </div>`;
+      el.appendChild(d);
+    });
+  }
+  fillAssets("favList",D.favoris,true);
+  fillAssets("penList",D.penalises,false);
+
+  // Donut legend
+  const dl=document.getElementById("donutLeg"); dl.innerHTML="";
+  D.donut.forEach(d=>{
+    const li=document.createElement("div"); li.className="leg-item";
+    li.innerHTML=`<div class="leg-dot" style="background:${d.color}"></div><span style="flex:1">${d.label}</span><span style="font-family:var(--mono);color:var(--tm)">${d.pct}%</span>`;
+    dl.appendChild(li);
+  });
+
+  // Calendar
+  const cl=document.getElementById("calList"); cl.innerHTML="";
+  D.calendar.forEach(ev=>{
+    const d=document.createElement("div"); d.className="cal-row";
+    d.innerHTML=`<span class="cal-date">${ev.date}</span><span class="cal-ev">${ev.ev}</span><div class="cal-dot" style="background:${ev.hi?"#EF4444":"#F59E0B"}"></div>`;
+    cl.appendChild(d);
+  });
+
+  // ── Canvas: Main gauge ──
+  (function(){
+    const{ctx,w,h}=getCtx("mainGauge");
+    const cx=w/2,cy=h*.80,r=Math.min(w*.42,h*.72),lw=14;
+    const SA=Math.PI,EA=2*Math.PI;
+    const segs=[{f:-2,t:-1,c:"#EF4444"},{f:-1,t:-.3,c:"#F97316"},{f:-.3,t:.3,c:"#64748B"},{f:.3,t:1,c:"#86EFAC"},{f:1,t:2,c:"#22C55E"}];
+    segs.forEach(s=>{
+      const a1=SA+((s.f+2)/4)*Math.PI,a2=SA+((s.t+2)/4)*Math.PI;
+      ctx.beginPath();ctx.arc(cx,cy,r,a1,a2);ctx.lineWidth=lw+8;ctx.strokeStyle=s.c+"1A";ctx.lineCap="butt";ctx.stroke();
+    });
+    ctx.beginPath();ctx.arc(cx,cy,r,SA,EA);ctx.lineWidth=lw;ctx.strokeStyle="#1E2D45";ctx.lineCap="round";ctx.stroke();
+    const vA=SA+((globalScore+2)/4)*Math.PI,col=sColor(globalScore);
+    ctx.beginPath();ctx.arc(cx,cy,r,SA,vA);ctx.lineWidth=lw;ctx.strokeStyle=col;ctx.lineCap="round";ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+r*Math.cos(vA),cy+r*Math.sin(vA));ctx.lineWidth=2.5;ctx.strokeStyle="#E2E8F0";ctx.lineCap="round";ctx.stroke();
+    ctx.beginPath();ctx.arc(cx,cy,4,0,2*Math.PI);ctx.fillStyle="#E2E8F0";ctx.fill();
+    ctx.fillStyle=col;ctx.font=`bold 22px 'Space Mono',monospace`;ctx.textAlign="center";ctx.fillText(fmt(globalScore),cx,cy-r*.38);
+    ctx.fillStyle="#64748B";ctx.font=`11px 'Space Mono',monospace`;
+    ctx.textAlign="left"; ctx.fillText("−2",cx-r-4,cy+18);
+    ctx.textAlign="right";ctx.fillText("+2",cx+r+4,cy+18);
+    ctx.fillStyle="#94A3B8";ctx.font=`10px 'Inter',sans-serif`;ctx.textAlign="center";ctx.fillText(iLabel,cx,cy+14);
+    [-1,-.3,.3,1].forEach(t=>{
+      const a=SA+((t+2)/4)*Math.PI,ir=r-lw/2-2,or=r+lw/2+2;
+      ctx.beginPath();ctx.moveTo(cx+ir*Math.cos(a),cy+ir*Math.sin(a));ctx.lineTo(cx+or*Math.cos(a),cy+or*Math.sin(a));ctx.lineWidth=1;ctx.strokeStyle="#1E2D45";ctx.stroke();
+    });
+  })();
+
+  // ── Canvas: Mini gauges ──
+  function drawMini(id,val,color){
+    const{ctx,w,h}=getCtx(id);
+    const cx=w/2,cy=h*.88,r=Math.min(w*.40,h*.72);
+    ctx.beginPath();ctx.arc(cx,cy,r,Math.PI,2*Math.PI);ctx.lineWidth=6;ctx.strokeStyle="#1E2D45";ctx.lineCap="round";ctx.stroke();
+    const a=Math.PI+(val/10)*Math.PI;
+    ctx.beginPath();ctx.arc(cx,cy,r,Math.PI,a);ctx.lineWidth=6;ctx.strokeStyle=color;ctx.lineCap="round";ctx.stroke();
+  }
+  drawMini("gStr",q.strength,"#F59E0B");
+  drawMini("gCon",q.consensus,"#F59E0B");
+  drawMini("gIne",q.inertie,"#F59E0B");
+  drawMini("gFat",q.fatigue,"#60A5FA");
+
+  // ── SVG: Matrix ──
+  (function(){
+    const svg=document.getElementById("matrix");
+    const mx=52,my=18,mW=370,mH=232;
+    const quads=[
+      {x:mx,      y:my,      w:mW/2,h:mH/2,col:"#F97316",lx:mx+mW*.25,ly:my+mH*.28,label:"🔥 Surchauffe"},
+      {x:mx+mW/2, y:my,      w:mW/2,h:mH/2,col:"#22C55E",lx:mx+mW*.75,ly:my+mH*.28,label:"☀️ Goldilocks"},
+      {x:mx,      y:my+mH/2, w:mW/2,h:mH/2,col:"#D97706",lx:mx+mW*.25,ly:my+mH*.72,label:"⛈ Stagflation"},
+      {x:mx+mW/2, y:my+mH/2, w:mW/2,h:mH/2,col:"#60A5FA",lx:mx+mW*.75,ly:my+mH*.72,label:"🌧 Récession Défla."},
+    ];
+    let s=`<defs><filter id="glo"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+    quads.forEach(q=>{
+      s+=`<rect x="${q.x}" y="${q.y}" width="${q.w}" height="${q.h}" fill="${q.col}" opacity=".07"/>`;
+      s+=`<text x="${q.lx}" y="${q.ly}" fill="${q.col}" font-size="12.5" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="middle" opacity=".6">${q.label}</text>`;
+    });
+    s+=`<rect x="${mx}" y="${my}" width="${mW}" height="${mH}" fill="none" stroke="#1E2D45" stroke-width="1"/>`;
+    s+=`<line x1="${mx+mW/2}" y1="${my}" x2="${mx+mW/2}" y2="${my+mH}" stroke="#1E2D45" stroke-width="1"/>`;
+    s+=`<line x1="${mx}" y1="${my+mH/2}" x2="${mx+mW}" y2="${my+mH/2}" stroke="#1E2D45" stroke-width="1"/>`;
+    s+=`<text x="${mx+mW/2}" y="${my+mH+18}" fill="#64748B" font-size="9.5" font-family="Space Mono,monospace" text-anchor="middle">← Inflation élevée · Score Inflation · Inflation faible →</text>`;
+    s+=`<text x="${mx-32}" y="${my+mH/2}" fill="#64748B" font-size="9.5" font-family="Space Mono,monospace" text-anchor="middle" transform="rotate(-90,${mx-32},${my+mH/2})">↑ Croissance ↑</text>`;
+    s+=`<text x="${mx+2}" y="${my+mH+16}" fill="#64748B" font-size="8" font-family="Space Mono,monospace">−2</text>`;
+    s+=`<text x="${mx+mW-10}" y="${my+mH+16}" fill="#64748B" font-size="8" font-family="Space Mono,monospace">+2</text>`;
+    const normX=(iS+2)/4, normY=1-(gS+2)/4;
+    const cx=mx+normX*mW, cy=my+normY*mH;
+    s+=`<line x1="${mx}" y1="${cy}" x2="${mx+mW}" y2="${cy}" stroke="${regime.c}" stroke-width=".7" opacity=".3" stroke-dasharray="4,5"/>`;
+    s+=`<line x1="${cx}" y1="${my}" x2="${cx}" y2="${my+mH}" stroke="${regime.c}" stroke-width=".7" opacity=".3" stroke-dasharray="4,5"/>`;
+    s+=`<circle cx="${cx}" cy="${cy}" r="16" fill="${regime.c}" opacity=".06"><animate attributeName="r" values="10;22;10" dur="3.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".10;.02;.10" dur="3.8s" repeatCount="indefinite"/></circle>`;
+    s+=`<circle cx="${cx}" cy="${cy}" r="10" fill="${regime.c}" opacity=".10"><animate attributeName="r" values="6;15;6" dur="3.8s" begin=".8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".15;.03;.15" dur="3.8s" begin=".8s" repeatCount="indefinite"/></circle>`;
+    s+=`<circle cx="${cx}" cy="${cy}" r="9" fill="${regime.c}" opacity=".85" filter="url(#glo)"/>`;
+    s+=`<circle cx="${cx}" cy="${cy}" r="3.5" fill="white" opacity=".95"/>`;
+    const lx=cx+(normX>.72?-78:12), ly=cy+(normY>.80?-28:14);
+    s+=`<rect x="${lx}" y="${ly-11}" width="74" height="24" rx="3" fill="#0F1623" stroke="${regime.c}" stroke-width=".6" opacity=".92"/>`;
+    s+=`<text x="${lx+37}" y="${ly+2}" fill="${regime.c}" font-size="9" font-family="Space Mono,monospace" text-anchor="middle">G:${fmt(gS)} I:${fmt(iS)}</text>`;
+    svg.innerHTML=s;
+  })();
+
+  // ── Canvas: Donut ──
+  (function(){
+    const{ctx}=getCtx("donut");
+    const[cx,cy,r,ir]=[50,50,46,26];
+    const tot=D.donut.reduce((s,d)=>s+d.pct,0);
+    let a=-Math.PI/2;
+    D.donut.forEach(d=>{
+      const sw=(d.pct/tot)*2*Math.PI;
+      ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,a,a+sw);ctx.closePath();ctx.fillStyle=d.color;ctx.fill();a+=sw;
+    });
+    ctx.beginPath();ctx.arc(cx,cy,ir,0,2*Math.PI);ctx.fillStyle="#0F1623";ctx.fill();
+    ctx.fillStyle="#94A3B8";ctx.font=`bold 8px 'Space Mono',monospace`;ctx.textAlign="center";ctx.fillText("ALLOC.",cx,cy-1);
+    ctx.fillStyle="#64748B";ctx.font=`7px 'Space Mono',monospace`;ctx.fillText("2026",cx,cy+9);
+  })();
+
+  // ── Canvas: Inflation chart ──
+  (function(){
+    const{ctx,w,h}=getCtx("inflChart");
+    const pd={t:8,r:8,b:22,l:28},cW=w-pd.l-pd.r,cH=h-pd.t-pd.b;
+    const ic=D.inflChart;
+    const all=[...ic.cpi,...ic.coreCpi,...ic.expectations];
+    const mn=Math.min(...all)-.05,mx=Math.max(...all)+.05;
+    const n=ic.labels.length;
+    const px=i=>pd.l+(i/(n-1))*cW,py=v=>pd.t+(1-(v-mn)/(mx-mn))*cH;
+    ctx.strokeStyle="#1E2D45";ctx.lineWidth=.5;
+    [0,.5,1].forEach(t=>{
+      const y=pd.t+t*cH;ctx.beginPath();ctx.moveTo(pd.l,y);ctx.lineTo(w-pd.r,y);ctx.stroke();
+      const val=(mx-t*(mx-mn)).toFixed(1);ctx.fillStyle="#64748B";ctx.font=`8px 'Space Mono',monospace`;ctx.textAlign="right";ctx.fillText(val+"%",pd.l-2,y+3);
+    });
+    ic.labels.forEach((l,i)=>{ctx.fillStyle="#64748B";ctx.font=`8px 'Space Mono',monospace`;ctx.textAlign="center";ctx.fillText(l,px(i),h-3);});
+    function line(data,col){
+      ctx.beginPath();data.forEach((v,i)=>i===0?ctx.moveTo(px(i),py(v)):ctx.lineTo(px(i),py(v)));
+      ctx.lineTo(px(n-1),pd.t+cH);ctx.lineTo(pd.l,pd.t+cH);ctx.closePath();ctx.fillStyle=col+"18";ctx.fill();
+      ctx.beginPath();data.forEach((v,i)=>i===0?ctx.moveTo(px(i),py(v)):ctx.lineTo(px(i),py(v)));
+      ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.lineJoin="round";ctx.stroke();
+      data.forEach((v,i)=>{ctx.beginPath();ctx.arc(px(i),py(v),2,0,2*Math.PI);ctx.fillStyle=col;ctx.fill();});
+    }
+    line(ic.cpi,"#EF4444");line(ic.coreCpi,"#60A5FA");line(ic.expectations,"#F59E0B");
+  })();
+}
+
+// ════════════════════════════════════════════════
+//  Load data.json and render
+// ════════════════════════════════════════════════
+async function init(){
+  try{
+    const res = await fetch("data.json?t="+Date.now());
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const data = await res.json();
+    render(data);
+    document.getElementById("loader").style.display="none";
+    const app=document.getElementById("app");
+    app.classList.add("visible");
+  }catch(err){
+    document.querySelector(".loader-text").textContent="Erreur : "+err.message;
+    document.querySelector(".spinner").style.borderTopColor="#EF4444";
+  }
+}
+
+init();
+</script>
+</body>
+</html>

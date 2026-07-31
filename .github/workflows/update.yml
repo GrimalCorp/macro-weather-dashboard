@@ -1,0 +1,85 @@
+name: 📊 Mise à jour Macro Dashboard
+
+on:
+  # Tourne les 1er et 15 de chaque mois à 7h00 UTC
+  schedule:
+    - cron: '0 7 1,15 * *'
+
+  # Permet aussi de lancer manuellement depuis GitHub UI
+  workflow_dispatch:
+
+jobs:
+  update-dashboard:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # nécessaire pour committer data.json
+
+    steps:
+
+      # ── 1. Checkout ──────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Python ────────────────────────────────────────────────
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic
+
+      # ── 3. Fetch data ─────────────────────────────────────────────
+      - name: Fetch macro data via Claude + web_search
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/fetch_data.py
+
+      # ── 4. Commit ─────────────────────────────────────────────────
+      - name: Commit updated data.json
+        run: |
+          git config --global user.name  "Macro Dashboard Bot"
+          git config --global user.email "bot@noreply.github.com"
+          git add data.json
+          # Ne committe que si data.json a vraiment changé
+          git diff --staged --quiet || (
+            git commit -m "📊 Auto-update $(date +'%d/%m/%Y %H:%M UTC')"
+            git push
+          )
+
+      # ── 5. Email de notification ──────────────────────────────────
+      - name: Envoyer le mail de notification
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "📊 Macro Dashboard mis à jour — ${{ github.run_number }}"
+          to: ${{ secrets.MAIL_TO }}
+          from: "Macro Dashboard <${{ secrets.MAIL_USERNAME }}>"
+          html_body: |
+            <div style="font-family:sans-serif;max-width:540px;margin:0 auto;background:#090C15;color:#E2E8F0;padding:32px;border-radius:12px">
+              <h2 style="color:#F59E0B;margin:0 0 8px">📊 Macro Weather Dashboard</h2>
+              <p style="color:#64748B;margin:0 0 24px;font-size:13px">Mise à jour automatique</p>
+
+              <p style="margin:0 0 20px;line-height:1.6">
+                Le dashboard a été mis à jour avec les dernières données macro-financières disponibles.
+              </p>
+
+              <div style="text-align:center;margin:28px 0">
+                <a href="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+                   style="background:#1D4ED8;color:white;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px">
+                  → Consulter le dashboard
+                </a>
+              </div>
+
+              <hr style="border:none;border-top:1px solid #1E2D45;margin:24px 0">
+
+              <p style="color:#64748B;font-size:11px;margin:0">
+                Prochaine mise à jour automatique dans ~2 semaines.<br>
+                Pour forcer une mise à jour : GitHub → Actions → Run workflow
+              </p>
+            </div>
