@@ -1,5 +1,5 @@
 {
-  "date": "1 Août 2026",
+  "date": "15 Août 2026",
   "blocs": [
     {
       "key": "croissance",
@@ -7,8 +7,8 @@
       "pct": 20,
       "score": 1.5,
       "trend": "↗",
-      "val": "PMI 53.6",
-      "sub": "S&P Global (24 Juil 2026)"
+      "val": "PMI Composite 54.5",
+      "sub": "S&P Global (Final juil. 2026)"
     },
     {
       "key": "inflation",
@@ -16,17 +16,17 @@
       "pct": 15,
       "score": -1.0,
       "trend": "↘",
-      "val": "CPI 3.5% YoY",
-      "sub": "BLS / Juin 2026"
+      "val": "CPI 3.4% YoY",
+      "sub": "BLS – juil. 2026"
     },
     {
       "key": "tauxReels",
       "label": "Taux Réels",
       "pct": 10,
       "score": -1.5,
-      "trend": "→",
-      "val": "10Y TIPS 2.41%",
-      "sub": "FRED / 29 Juil 2026"
+      "trend": "↗",
+      "val": "10Y TIPS 2.44%",
+      "sub": "FRED / Treasury"
     },
     {
       "key": "liquidite",
@@ -35,16 +35,16 @@
       "score": 1.5,
       "trend": "↗",
       "val": "M2 5.5% YoY",
-      "sub": "Fed / Juin 2026"
+      "sub": "Fed / FRED – juin 2026"
     },
     {
       "key": "condFin",
       "label": "Conditions Fin.",
       "pct": 10,
-      "score": 1.5,
+      "score": 1.0,
       "trend": "→",
-      "val": "NFCI -0.54",
-      "sub": "Chicago Fed / 10 Juil 2026"
+      "val": "NFCI −0.43",
+      "sub": "Chicago Fed – août 2026"
     },
     {
       "key": "credit",
@@ -52,8 +52,8 @@
       "pct": 10,
       "score": 1.0,
       "trend": "→",
-      "val": "HY 287bp",
-      "sub": "ICE BofA / 29 Juil 2026"
+      "val": "HY 2.7%",
+      "sub": "ICE BofA – 13 août 2026"
     },
     {
       "key": "anticip",
@@ -61,108 +61,108 @@
       "pct": 10,
       "score": 0.5,
       "trend": "↗",
-      "val": "2Y 4.29% / +45bp",
-      "sub": "FRED / 31 Juil 2026"
+      "val": "2Y 4.22% / Spread +0.45%",
+      "sub": "FRED – août 2026"
     },
     {
       "key": "energie",
       "label": "Énergie / Géo",
       "pct": 5,
-      "score": -1.0,
+      "score": -1.5,
       "trend": "↗",
       "val": "Brent $88/bbl",
-      "sub": "ICE / +26% YoY"
+      "sub": "ICE / EIA – 14 août 2026"
     },
     {
       "key": "largeur",
       "label": "Largeur Marché",
       "pct": 5,
       "score": 0.5,
-      "trend": "→",
-      "val": "62% > MM200",
-      "sub": "S&P / Seeking Alpha"
+      "trend": "↗",
+      "val": "57% > MM200",
+      "sub": "S&P / thetrading.tools – 7 août 2026"
     }
   ],
   "quality": {
     "strength": 6,
     "consensus": 6,
-    "inertie": 5,
-    "fatigue": 6,
-    "transitionRisk": 7,
-    "regimeAge": 8
+    "inertie": 6,
+    "fatigue": 5,
+    "transitionRisk": 6,
+    "regimeAge": 10
   },
   "favoris": [
     {
       "name": "Actions US Large Cap (S&P 500)",
-      "score": 7.5,
-      "note": "PMI 53.6 + M2 +5.5% + NFCI très accommodant soutiennent les actions"
+      "score": 7.8,
+      "note": "PMI fort, spreads HY ultra-serrés, liquidité M2 expansive"
     },
     {
       "name": "Or (XAU/USD)",
-      "score": 8.0,
-      "note": "TIPS élevés mais M2 fort + inflation persistante + risque géo moyen-orient"
+      "score": 8.2,
+      "note": "Géopolitique Iran, inflation structurelle > 3%, TIPS 2.44% déjà pricé"
     },
     {
-      "name": "Actions Énergie (XLE)",
-      "score": 7.8,
-      "note": "Brent $88 +26% YoY, tensions Hormuz, prime géopolitique durable"
+      "name": "Actions Énergie / Pétrolières",
+      "score": 7.5,
+      "note": "Brent $88+, risque Hormuz, déficit inventaires US persistent"
     },
     {
-      "name": "Obligations HY court terme",
+      "name": "TIPS / Obligations indexées inflation",
       "score": 7.2,
-      "note": "Spreads HY à 287bp (historiquement bas), conditions financières très souples"
+      "note": "CPI 3.4% encore élevé, taux réels 2.44% attractifs pour hedge inflation"
     },
     {
-      "name": "Actions Défense / Aérospatiale",
-      "score": 7.9,
-      "note": "Contexte US-Iran, hausse budgets défense, demande structurelle"
+      "name": "Actions Défense & Aérospatiale",
+      "score": 7.0,
+      "note": "Guerre Iran booste budgets défense, secteur structurellement favorisé"
     }
   ],
   "penalises": [
     {
-      "name": "Obligations Longue Durée (TLT)",
+      "name": "Obligations longues US (TLT / 20-30Y)",
       "score": 2.5,
-      "note": "TIPS 2.41% + CPI 3.5% + 10Y à 4.74% pèsent lourd sur la duration"
+      "note": "TIPS 2.44%, inflation 3.4%, risque de hausse de taux Fed en sept."
     },
     {
-      "name": "Secteur Immobilier coté (REITS)",
+      "name": "Consommation discrétionnaire à levier",
       "score": 2.0,
-      "note": "Taux réels élevés + 10Y à 4.74% compriment les valorisations immobilières"
+      "note": "Salaires réels négatifs (-0.2%), hausse taux, pression budget ménages"
     },
     {
-      "name": "Actifs émergents à beta élevé",
-      "score": 2.8,
-      "note": "Dollar résistant + taux US élevés + choc énergie pénalisent les EM importateurs"
+      "name": "Marchés émergents importateurs de pétrole",
+      "score": 1.8,
+      "note": "Choc pétrolier +34% YoY, dollar fort, conditions de financement tendues"
     }
   ],
   "donut": [
     {
       "label": "Actions US",
-      "pct": 35,
+      "pct": 32,
       "color": "#60A5FA"
     },
     {
-      "label": "Énergie / Matières Premières",
-      "pct": 18,
+      "label": "Or & Matières premières",
+      "pct": 20,
       "color": "#F59E0B"
     },
     {
-      "label": "Or / Métaux Précieux",
+      "label": "Énergie",
       "pct": 15,
       "color": "#EF4444"
     },
     {
-      "label": "Obligations HY / Crédit",
-      "pct": 12,
+      "label": "TIPS / Inflation-linked",
+      "pct": 13,
       "color": "#22C55E"
     },
     {
-      "label": "Liquidités / T-Bills",
+      "label": "Cash / T-Bills",
       "pct": 12,
       "color": "#94A3B8"
     },
     {
-      "label": "Défense / Géopolitique",
+      "label": "Alternatives / Défense",
       "pct": 8,
       "color": "#8B5CF6"
     }
@@ -177,78 +177,78 @@
       "Juil"
     ],
     "cpi": [
-      2.8,
-      3.4,
+      3.1,
+      3.5,
       4.0,
       4.2,
       3.5,
       3.4
     ],
     "coreCpi": [
-      2.5,
       2.7,
       2.8,
+      2.9,
       2.9,
       2.6,
       2.5
     ],
     "expectations": [
-      3.4,
-      3.2,
-      3.2,
+      2.8,
       3.0,
-      2.9,
-      2.8
+      3.3,
+      3.4,
+      3.1,
+      2.9
     ]
   },
   "confirms": [
-    "PMI Composite US à 53.6 — plus haut niveau en 8 mois, expansion robuste",
-    "M2 +5.5% YoY — liquidité en accélération, record historique à $23.2T",
-    "NFCI à -0.54 — conditions financières très accommodantes",
-    "HY Spreads à 287bp — appétit au risque fort, pas de stress crédit"
+    "PMI Composite 54.5 – expansion accélérée, plus haut depuis nov. 2025",
+    "HY spreads à 271 bps – conditions de crédit très accommodantes",
+    "M2 +5.5% YoY – liquidité en expansion, record absolu à $23.2T",
+    "CPI en désinflation graduelle (4.2% en mai → 3.4% en juil.) – trajectoire baissière"
   ],
   "contradicts": [
-    "TIPS à 2.41% — taux réels restrictifs, coût du capital élevé pour la duration",
-    "Brent +26% YoY à $88 — choc énergétique géopolitique ravive l'inflation",
-    "3m10Y légèrement plat — courbe pas encore franchement pentue, signaux mixtes sur le cycle"
+    "TIPS 2.44% – taux réels restrictifs, pénalisent les valorisations long duration",
+    "Brent +34% YoY – choc énergétique persistant, risque stagflationniste",
+    "NFP juillet : -23 000 emplois vs +83 000 attendu – signal de fragilisation du marché du travail"
   ],
   "risks": [
-    "Réescalade du conflit US-Iran : fermeture du détroit d'Hormuz → pétrole $120+ et inflation de retour",
-    "Fed contrainte de monter les taux en sept. 2026 (63% probabilité pricée) malgré le ralentissement",
-    "Pic de M2 retardé se transmettant à l'inflation core d'ici Q4 2026, forçant un resserrement supplémentaire",
-    "Deterioration rapide de la largeur de marché (S5TH) si les taux longs dépassent 5% durablement"
+    "Hausse de taux Fed en septembre (probabilité 68%) face à inflation > 3% et croissance résiliente",
+    "Escalade au détroit d'Ormuz : blocage transit pétrolier → Brent vers $100+",
+    "Stagflation : PMI élevé + inflation persistante + salaires réels négatifs = contexte toxique 2H 2026",
+    "Largeur marché insuffisante (57% > MM200) : rebond concentré sur tech/mega-cap, fragilité sous-jacente"
   ],
   "calendar": [
     {
-      "date": "7 Août",
-      "ev": "NFP Juillet 2026 (Rapport emploi BLS)",
+      "date": "19 Août",
+      "ev": "Minutes FOMC (réunion du 29-30 juillet)",
       "hi": true
     },
     {
-      "date": "12 Août",
-      "ev": "CPI Juillet 2026 (BLS)",
+      "date": "4 Sept",
+      "ev": "NFP Août 2026 – Emplois non-agricoles",
       "hi": true
     },
     {
-      "date": "16 Août",
-      "ev": "PMI Flash Août 2026 (S&P Global)",
+      "date": "10 Sept",
+      "ev": "PPI Août 2026 – Prix à la production",
       "hi": false
     },
     {
-      "date": "26 Août",
-      "ev": "PIB Q2 2026 — 2ème estimation (BEA)",
+      "date": "11 Sept",
+      "ev": "CPI Août 2026 – Inflation consommateurs",
       "hi": true
     },
     {
-      "date": "16 Sep",
-      "ev": "FOMC Septembre 2026 — Décision taux (J2)",
+      "date": "15-16 Sept",
+      "ev": "FOMC – Décision taux + dot plot (SEP)",
       "hi": true
     },
     {
-      "date": "11 Sep",
-      "ev": "CPI Août 2026 (BLS)",
+      "date": "23 Sept",
+      "ev": "PMI Flash Septembre – S&P Global US",
       "hi": false
     }
   ],
-  "lastUpdate": "2026-08-01T11:42:56Z"
+  "lastUpdate": "2026-08-15T07:57:12Z"
 }
