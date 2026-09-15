@@ -1,5 +1,5 @@
 {
-  "date": "1 Septembre 2026",
+  "date": "15 Septembre 2026",
   "blocs": [
     {
       "key": "croissance",
@@ -7,17 +7,17 @@
       "pct": 20,
       "score": 1.5,
       "trend": "↗",
-      "val": "PMI Comp. 56.0",
-      "sub": "S&P Global / Août 2026"
+      "val": "PMI Composite 56.0 / Services 56.5",
+      "sub": "S&P Global (Août 2026)"
     },
     {
       "key": "inflation",
       "label": "Inflation",
       "pct": 15,
       "score": -1.0,
-      "trend": "↘",
-      "val": "CPI 3.4% YoY",
-      "sub": "BLS / Juillet 2026"
+      "trend": "↗",
+      "val": "CPI 3.4% YoY / Core 2.4%",
+      "sub": "BLS (Août 2026)"
     },
     {
       "key": "tauxReels",
@@ -25,26 +25,26 @@
       "pct": 10,
       "score": -1.5,
       "trend": "↗",
-      "val": "10Y TIPS 2.35%",
-      "sub": "FRED / 20 Août 2026"
+      "val": "10Y TIPS 2.57%",
+      "sub": "FRED (14 Sep 2026)"
     },
     {
       "key": "liquidite",
       "label": "Liquidité",
       "pct": 15,
-      "score": 1.5,
-      "trend": "↗",
-      "val": "M2 5.5% YoY",
-      "sub": "Fed / Juin 2026"
+      "score": 1.0,
+      "trend": "→",
+      "val": "M2 +5.4% YoY ($23.2T)",
+      "sub": "Fed / FRED (Juil 2026)"
     },
     {
       "key": "condFin",
       "label": "Conditions Fin.",
       "pct": 10,
-      "score": 1.0,
+      "score": 1.2,
       "trend": "↘",
-      "val": "NFCI -0.38",
-      "sub": "Chicago Fed / Août 2026"
+      "val": "NFCI −0.56",
+      "sub": "Chicago Fed (4 Sep 2026)"
     },
     {
       "key": "credit",
@@ -52,203 +52,203 @@
       "pct": 10,
       "score": 1.0,
       "trend": "→",
-      "val": "HY 2.75%",
-      "sub": "ICE BofA / 20 Août 2026"
+      "val": "HY OAS 2.71%",
+      "sub": "ICE BofA / FRED (Sep 2026)"
     },
     {
       "key": "anticip",
       "label": "Anticipations",
       "pct": 10,
-      "score": 0.5,
-      "trend": "↗",
-      "val": "2Y 4.35% / +41bp",
-      "sub": "FRED / 31 Août 2026"
+      "score": 0.0,
+      "trend": "↘",
+      "val": "2Y 4.63% / Spread 10Y−2Y +33bp",
+      "sub": "FRED / US Treasury (11 Sep 2026)"
     },
     {
       "key": "energie",
       "label": "Énergie / Géo",
       "pct": 5,
-      "score": -1.5,
+      "score": -2.0,
       "trend": "↗",
-      "val": "Brent $89/bbl",
-      "sub": "ICE / EIA / +32% YoY"
+      "val": "Brent $108/bbl (+61% YoY)",
+      "sub": "ICE / Trading Economics (14 Sep 2026)"
     },
     {
       "key": "largeur",
       "label": "Largeur Marché",
       "pct": 5,
       "score": 0.5,
-      "trend": "↗",
-      "val": "62% > MM200",
-      "sub": "S&P / Août 2026"
+      "trend": "→",
+      "val": "~57% > MM200",
+      "sub": "S&P Dow Jones / Investing.com"
     }
   ],
   "quality": {
-    "strength": 6,
-    "consensus": 6,
-    "inertie": 5,
-    "fatigue": 5,
-    "transitionRisk": 6,
-    "regimeAge": 9
+    "strength": 5,
+    "consensus": 5,
+    "inertie": 6,
+    "fatigue": 7,
+    "transitionRisk": 8,
+    "regimeAge": 7
   },
   "favoris": [
     {
-      "name": "Actions US (S&P 500)",
-      "score": 7.8,
-      "note": "PMI 56 + M2+5.5% + HY serré soutiennent les bénéfices"
+      "name": "Énergie (XLE / Majors pétrolières)",
+      "score": 9.0,
+      "note": "Brent +61% YoY, choc géopolitique Moyen-Orient, sous-investissement offre"
     },
     {
-      "name": "Or (Gold)",
+      "name": "Or (GLD / Futures)",
+      "score": 8.5,
+      "note": "Inflation persistante, stagflation naissante, hedge géopolitique Iran"
+    },
+    {
+      "name": "Actions Value / Défensives (Santé, Conso. de base)",
       "score": 7.5,
-      "note": "Inflation persistante + géopolitique Moyen-Orient = valeur refuge"
+      "note": "Croissance PMI solide mais sentiment consommateur en chute, rotation défensive"
     },
     {
-      "name": "Actions Énergie (XLE)",
-      "score": 7.3,
-      "note": "Brent $89 + tensions Hormuz profitent au secteur pétrolier"
+      "name": "TIPS / Obligations indexées inflation",
+      "score": 7.5,
+      "note": "CPI 3.4%, inflation attendues UMich à 4.6%, protection réelle attractive"
     },
     {
-      "name": "Actions Europe (STOXX 600)",
-      "score": 6.8,
-      "note": "Valorisations attractives, croissance services, BCE accommodante"
-    },
-    {
-      "name": "Infrastructures / REITs énergétiques",
-      "score": 6.5,
-      "note": "Flux stables, bénéficient du boom énergétique américain"
+      "name": "USD (Dollar américain)",
+      "score": 7.0,
+      "note": "Pression vers hausse de taux Fed, différentiel de taux favorable, flight-to-safety"
     }
   ],
   "penalises": [
     {
-      "name": "Obligations Longues US (TLT)",
-      "score": 2.5,
-      "note": "TIPS 2.35% + CPI 3.4% pèsent sur duration longue"
-    },
-    {
-      "name": "Immobilier coté sensible aux taux (ex. REIT bureaux)",
+      "name": "Obligations longues nominales (TLT / 30Y Treasuries)",
       "score": 2.0,
-      "note": "Taux réels élevés compressent les valorisations"
+      "note": "TIPS 2.57%, CPI élevé, pression haussière sur les taux longs, 30Y à 5.36%"
     },
     {
-      "name": "Obligations EM en USD",
-      "score": 1.8,
-      "note": "Dollar fort + choc pétrolier pénalisent les pays importateurs"
+      "name": "Actions de Croissance / High Valuation Tech",
+      "score": 2.5,
+      "note": "Taux réels très positifs (2.57%) compriment les multiples, sentiment dégradé"
+    },
+    {
+      "name": "High Yield Bonds (spéculatifs CCC)",
+      "score": 3.0,
+      "note": "Spreads bas mais risque de récession croissant si énergie reste haut, levier dangereux"
     }
   ],
   "donut": [
     {
-      "label": "Actions US",
-      "pct": 32,
+      "label": "Matières Premières / Énergie",
+      "pct": 22,
       "color": "#F59E0B"
     },
     {
-      "label": "Actions Intl",
+      "label": "Or & Métaux Précieux",
       "pct": 18,
+      "color": "#EF4444"
+    },
+    {
+      "label": "Actions Défensives",
+      "pct": 20,
       "color": "#60A5FA"
     },
     {
-      "label": "Or & Matières 1ères",
-      "pct": 15,
-      "color": "#F97316"
-    },
-    {
-      "label": "Cash / T-Bills",
+      "label": "TIPS / Inflation-linked",
       "pct": 18,
-      "color": "#94A3B8"
-    },
-    {
-      "label": "Oblig. IG Courtes",
-      "pct": 10,
       "color": "#22C55E"
     },
     {
-      "label": "Actifs Alternatifs",
-      "pct": 7,
+      "label": "Cash / USD / Monétaire",
+      "pct": 14,
       "color": "#8B5CF6"
+    },
+    {
+      "label": "Actions Croissance (sous-pondéré)",
+      "pct": 8,
+      "color": "#94A3B8"
     }
   ],
   "inflChart": {
     "labels": [
-      "Mar",
       "Avr",
       "Mai",
       "Juin",
       "Juil",
-      "Août*"
+      "Août",
+      "Sep*"
     ],
     "cpi": [
-      3.8,
-      4.2,
-      4.2,
-      3.5,
       3.4,
-      3.3
+      3.3,
+      2.9,
+      3.4,
+      3.4,
+      3.5
     ],
     "coreCpi": [
-      2.6,
-      2.6,
+      2.8,
+      2.8,
       2.7,
-      2.6,
       2.5,
+      2.4,
       2.5
     ],
     "expectations": [
-      2.8,
-      3.1,
-      3.2,
-      2.9,
-      2.6,
-      2.5
+      3.5,
+      3.6,
+      3.9,
+      4.1,
+      4.4,
+      4.6
     ]
   },
   "confirms": [
-    "PMI Composite US à 56.0 : expansion la plus forte depuis avril 2022",
-    "M2 en hausse de 5.5% YoY : liquidité en expansion soutenant les actifs risqués",
-    "HY spreads à 275 bps : pas de stress crédit, appétit pour le risque intact",
-    "Courbe 10Y-2Y positive (+41 bp) : pas d'inversion, régime expansion confirmé"
+    "PMI Composite 56.0 : expansion robuste des services et de l'industrie manufacturière",
+    "NFCI −0.56 : conditions financières très accommodantes, crédit fluide",
+    "HY OAS 2.71% : spreads de crédit historiquement serrés, appétit pour le risque intact",
+    "M2 +5.4% YoY : liquidité en expansion, soutien structurel aux actifs risqués"
   ],
   "contradicts": [
-    "CPI à 3.4% YoY bien au-dessus de la cible Fed 2% : pression sur politique monétaire",
-    "TIPS 10Y à 2.35% : taux réels restrictifs pesant sur valorisations et croissance",
-    "Brent +32% YoY via conflit Moyen-Orient : choc d'offre stagflationniste latent"
+    "TIPS 2.57% : taux réels très élevés, headwind puissant pour les actifs à duration longue",
+    "Brent +61% YoY : choc énergétique majeur menaçant la désinflation et la croissance",
+    "UMich Sentiment 47.8 & inflation anticipée 4.6% : consommateur en détresse, stagflation"
   ],
   "risks": [
-    "Escalade militaire US-Iran fermant durablement le détroit d'Ormuz → choc pétrolier sévère",
-    "Fed hawkish surprise au FOMC 15-16 sept : hausse de taux face à CPI 3.4% persistant",
-    "Atterrissage brutal du consommateur US : inflation efface gains salariaux (salaires +3.2% vs CPI 3.4%)",
-    "Contagion géopolitique au-delà du Moyen-Orient fragilisant les chaînes d'approvisionnement mondiales"
+    "Escalade géopolitique Moyen-Orient : fermeture du Détroit d'Ormuz, baril vers $120-130",
+    "Fed contrainte à monter les taux malgré la décélération : risque de récession en 2027",
+    "Stagflation : CPI 3.4% persistant + dégradation du sentiment consommateur au plus bas historique",
+    "Fragilité de la largeur de marché (~57%) : rally concentré sur quelques secteurs, risque de correction"
   ],
   "calendar": [
     {
-      "date": "4 Sept",
-      "ev": "NFP Août 2026 (Emploi US)",
+      "date": "16 Sep",
+      "ev": "FOMC Décision de taux (réunion 15-16 Sep) — hausse de 25bp très probable (82%)",
       "hi": true
     },
     {
-      "date": "9 Sept",
-      "ev": "EIA STEO – Perspectives pétrole (Brent forecast)",
+      "date": "25 Sep",
+      "ev": "UMich Inflation Expectations (finale Sep 2026)",
       "hi": false
     },
     {
-      "date": "11 Sept",
-      "ev": "CPI Août 2026 (BLS – inflation US)",
+      "date": "3 Oct",
+      "ev": "NFP Septembre 2026 — Rapport sur l'emploi non-agricole",
       "hi": true
-    },
-    {
-      "date": "15-16 Sept",
-      "ev": "FOMC – Décision taux Fed + SEP (dot plot)",
-      "hi": true
-    },
-    {
-      "date": "17 Sept",
-      "ev": "Bank of England – Décision taux directeurs",
-      "hi": false
     },
     {
       "date": "7 Oct",
-      "ev": "Minutes FOMC réunion 15-16 sept",
+      "ev": "FOMC Minutes — compte-rendu réunion 15-16 Septembre",
       "hi": false
+    },
+    {
+      "date": "14 Oct",
+      "ev": "CPI Septembre 2026 (BLS) + Beige Book Fed",
+      "hi": true
+    },
+    {
+      "date": "28 Oct",
+      "ev": "FOMC Réunion Octobre 2026 — Décision de taux + Conférence de presse",
+      "hi": true
     }
   ],
-  "lastUpdate": "2026-09-01T07:13:44Z"
+  "lastUpdate": "2026-09-15T12:32:07Z"
 }
